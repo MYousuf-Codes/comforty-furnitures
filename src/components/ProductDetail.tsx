@@ -1,11 +1,11 @@
-"use client";
+"use client"; // Client-side component for React hooks
 
-import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/features/cart/cartSlice";
-import { useState } from "react"; // Import useState for handling quantity
-import { CiShoppingCart } from "react-icons/ci";
+import { urlFor } from "@/sanity/lib/image";  // Ensure correct image URL generation
+import Image from "next/image";  // Next.js Image component
+import { useDispatch } from "react-redux";  // Redux for managing the cart
+import { addToCart } from "@/features/cart/cartSlice";  // Action for adding to cart
+import { useState } from "react";  // React state for managing quantity
+import { CiShoppingCart } from "react-icons/ci";  // Shopping cart icon
 
 interface ProductProps {
   product: {
@@ -22,29 +22,29 @@ interface ProductProps {
 const ProductDetail = ({ product }: ProductProps) => {
   const dispatch = useDispatch();
 
-  // State to handle quantity
+  // State to manage quantity of the product
   const [quantity, setQuantity] = useState(1);
 
-  // Handle adding to cart with quantity
+  // Handle add to cart action
   const handleAddToCart = () => {
     const cartItem = {
       id: product._id,
       name: product.title,
       image: urlFor(product.image).url(),
       price: product.price,
-      quantity: quantity, // Use the current quantity
+      quantity: quantity,
     };
     dispatch(addToCart(cartItem));
   };
 
-  // Handle incrementing quantity
+  // Increase quantity
   const increaseQuantity = () => {
     if (quantity < product.inventory) {
       setQuantity(quantity + 1);
     }
   };
 
-  // Handle decrementing quantity, ensuring it doesn't go below 1
+  // Decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -88,7 +88,6 @@ const ProductDetail = ({ product }: ProductProps) => {
           In stock: {product.inventory}
         </p>
 
-
         {/* Quantity Section */}
         <div className="flex items-center gap-4 mb-6">
           <p className="text-gray-700 text-lg font-semibold">Quantity:</p>
@@ -118,7 +117,7 @@ const ProductDetail = ({ product }: ProductProps) => {
         <button
           onClick={handleAddToCart}
           className="flex items-center bg-cyan-600 text-white px-6 py-2 rounded-md hover:bg-cyan-700"
-        ><CiShoppingCart className="text-white text-4xl ml-0 mr-2  " /> Add to Cart
+        ><CiShoppingCart className="text-white text-4xl ml-0 mr-2" /> Add to Cart
         </button>
       </div>
     </div>
