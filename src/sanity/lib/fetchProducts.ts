@@ -1,7 +1,6 @@
-import { client } from "@/sanity/lib/client";  // Ensure the client is correctly imported
+import { client } from "@/sanity/lib/client";  // Ensure client is correct
 import { IProducts } from "@/types/IProducts";  // Ensure correct types are imported
 
-// Fetch products query from Sanity and return an array of products
 export const fetchProducts = async (): Promise<IProducts[]> => {
   const query = `*[_type == "products"]{
     _id,
@@ -13,6 +12,5 @@ export const fetchProducts = async (): Promise<IProducts[]> => {
     tags
   }`;
 
-  // Fetch and return the products
   return client.fetch(query);
 };
