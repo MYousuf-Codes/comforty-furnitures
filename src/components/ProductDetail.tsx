@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
 import { useState } from "react"; // Import useState for handling quantity
+import { CiShoppingCart } from "react-icons/ci";
 
 interface ProductProps {
   product: {
@@ -20,7 +21,7 @@ interface ProductProps {
 
 const ProductDetail = ({ product }: ProductProps) => {
   const dispatch = useDispatch();
-  
+
   // State to handle quantity
   const [quantity, setQuantity] = useState(1);
 
@@ -104,11 +105,10 @@ const ProductDetail = ({ product }: ProductProps) => {
           <button
             onClick={decreaseQuantity}
             disabled={quantity === 1} // Disable minus button if quantity is 1
-            className={`${
-              quantity === 1
+            className={`${quantity === 1
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-cyan-600 hover:bg-cyan-700"
-            } text-white text-lg px-4 py-2 rounded-full`}
+              } text-white text-lg px-4 py-2 rounded-full`}
           >
             -
           </button>
@@ -117,9 +117,8 @@ const ProductDetail = ({ product }: ProductProps) => {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className="bg-cyan-600 text-white px-6 py-2 rounded-md hover:bg-cyan-700"
-        >
-          Add to Cart
+          className="flex items-center bg-cyan-600 text-white px-6 py-2 rounded-md hover:bg-cyan-700"
+        ><CiShoppingCart className="text-white text-4xl ml-0 mr-2  " /> Add to Cart
         </button>
       </div>
     </div>
