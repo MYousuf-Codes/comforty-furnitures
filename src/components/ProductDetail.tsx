@@ -52,9 +52,9 @@ const ProductDetail = ({ product }: ProductProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row bg-white items-center justify-center gap-10 px-6 py-10">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-6 py-10 bg-white">
       {/* Left: Product Image */}
-      <div className="flex justify-center items-start">
+      <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <Image
           src={urlFor(product.image).url()}
           alt={product.title}
@@ -65,14 +65,13 @@ const ProductDetail = ({ product }: ProductProps) => {
       </div>
 
       {/* Right: Product Details */}
-      <div className="max-w-md">
-        <h1 className="text-4xl -mt-20 font-bold text-gray-900 mb-4">
-          {product.title.split(" ").slice(0, 2).join(" ")}
-          <br />
-          {product.title.split(" ").slice(2).join(" ")}
+      <div className="w-full md:w-1/2 max-w-md">
+        <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+          {product.title}
         </h1>
-        <div className="mb-4">
-          <span className="text-xl font-semibold text-white bg-cyan-600 rounded-2xl py-1 px-2">
+        
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-xl font-semibold text-white bg-cyan-600 rounded-full py-1 px-3">
             ${product.price} USD
           </span>
           {product.priceWithoutDiscount && (
@@ -80,11 +79,13 @@ const ProductDetail = ({ product }: ProductProps) => {
               ${product.priceWithoutDiscount}
             </span>
           )}
-          <hr className="border-gray-300 my-4" />
-          <p className="text-gray-700 text-sm mb-6 mt-4">{product.description}</p>
         </div>
 
-        <p className="text-gray-700 text-sm mb-6 mt-4 font-semibold">
+        <hr className="border-gray-300 my-4" />
+
+        <p className="text-gray-700 text-sm mb-6">{product.description}</p>
+
+        <p className="text-gray-700 text-sm mb-6 font-semibold">
           In stock: {product.inventory}
         </p>
 
@@ -116,8 +117,9 @@ const ProductDetail = ({ product }: ProductProps) => {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className="flex items-center bg-cyan-600 text-white px-6 py-2 rounded-md hover:bg-cyan-700"
-        ><CiShoppingCart className="text-white text-4xl ml-0 mr-2" /> Add to Cart
+          className="flex items-center bg-cyan-600 text-white px-6 py-3 rounded-md hover:bg-cyan-700 transition-all"
+        >
+          <CiShoppingCart className="text-white text-2xl mr-2" /> Add to Cart
         </button>
       </div>
     </div>
