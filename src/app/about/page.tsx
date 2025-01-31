@@ -1,78 +1,73 @@
 import React from "react";
 import Image from "next/image";
+import MakesDifferent from "@/components/MakesDifferent";
 
 const AboutPage = () => {
     return (
-        <div className="w-4/5 h-auto mx-auto">
-            <div className="w-full h-auto mt-2.5 flex justify-between flex-wrap md:flex-nowrap">
-                <div className="h-100 w-120 bg-[#007580] rounded-sm p-1.25">
-                    <h1 className="text-2xl text-white pl-10 font-bold mt-10">About Us - Comforty</h1>
-                    <p className="text-sm text-white text-justify p-2.5">At Comforty, we believe that the right chair can transform your space and elevate your comfort. Specializing in ergonomic design, premium materials,
-                        and modern aesthetics, we craft chairs that seamlessly blend style with functionality.</p>
-                    <button className="w-42.5 h-14 bg-[#16919c] text-white mt-20 ml-2.5">View Collection</button>
+        <div className="container w-full h-auto mx-auto px-5 md:px-10 mb-12">
+            {/* About Us Section */}
+            <div className="w-full h-auto mt-5 flex flex-col md:flex-row justify-between items-center">
+                {/* Text Section */}
+                <div className="flex-1 bg-[#007580] rounded-lg p-6 text-white h-96">
+                    <h1 className="text-3xl font-bold mb-4">About Us - Comforty</h1>
+                    <p className="text-base mb-6">At Comforty, we believe that the right chair can transform your space and elevate your comfort. Specializing in ergonomic design, premium materials, and modern aesthetics, we craft chairs that seamlessly blend style with functionality.</p>
+                    <br /><br /><br />
+                    <button className="w-full md:w-auto bg-[#16919c] text-white py-3 px-6 rounded-md text-lg">
+                        View Collection
+                    </button>
                 </div>
-                <Image
-                    src="/images/new chair.png"
-                    alt="logo"
-                    width={480}
-                    height={400}
-                    className="w-125 h-100"
-                />
-            </div>
-            <h1 className="text-2xl font-medium text-center pt-2.5">What Makes Our Brand Different</h1>
-            <div className="w-full h-61 flex flex-wrap justify-center md:justify-start">
-                <div className="h-55 w-62.5 bg-[#e8e9ea] m-2.5">
-                    <i className="fa-solid fa-truck pl-3.5 pt-5 text-[#007580]"></i>
-                    <h1 className="text-base pl-3.5 pt-2.5 text-[#007580]">Next Day as Standards</h1>
-                    <p className="text-xs pl-3.5 pt-2.5 text-[#007580]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione pariatur inventore e</p>
-                </div>
-                <div className="h-55 w-62.5 bg-[#e8e9ea] m-2.5">
-                    <i className="fa-solid fa-circle-check pl-3.5 pt-5 text-[#007580]"></i>
-                    <h1 className="text-base pl-3.5 pt-2.5 text-[#007580]">Made by True Artisans</h1>
-                    <p className="text-xs pl-3.5 pt-2.5 text-[#007580]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione pariatur inventore e</p>
-                </div>
-                <div className="h-55 w-62.5 bg-[#e8e9ea] m-2.5">
-                    <i className="fa-solid fa-folder pl-3.5 pt-5 text-[#007580]"></i>
-                    <h1 className="text-base pl-3.5 pt-2.5 text-[#007580]">Unbeatable Prices</h1>
-                    <p className="text-xs pl-3.5 pt-2.5 text-[#007580]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione pariatur inventore e</p>
-                </div>
-                <div className="h-55 w-62.5 bg-[#e8e9ea] m-2.5">
-                    <i className="fa-solid fa-seedling pl-3.5 pt-5 text-[#007580]"></i>
-                    <h1 className="text-base pl-3.5 pt-2.5 text-[#007580]">Recycled Packaging</h1>
-                    <p className="text-xs pl-3.5 pt-2.5 text-[#007580]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione pariatur inventore e</p>
+                {/* Image Section */}
+                <div className="flex-1 mt-6 md:mt-0 md:ml-6 h-96">
+                    <Image
+                        src="/images/new chair.png"
+                        alt="Comforty Chair"
+                        width={600}
+                        height={600}
+                        className="w-full h-full object-cover rounded-lg"
+                    />
                 </div>
             </div>
-            <h1 className="text-2xl font-medium mt-5">Our Popular Products</h1>
-            <div className="w-full h-115 flex flex-wrap justify-center md:justify-start">
-                <div className="m-2.5">
+
+            {/* What Makes Our Brand Different */}
+            <br /><br /><br />
+            <MakesDifferent />
+
+
+            {/* Our Popular Products */}
+            <h2 className="text-2xl font-semibold mt-12 text-center">Our Popular Products</h2>
+            <div className="flex flex-wrap justify-center mt-8 gap-6">
+                <div className="">
                     <Image
                         src="/images/Large.png"
-                        alt="logo"
-                        width={480}
-                        height={500}
-                        className="w-125 h-125"
+                        alt="Popular Chair"
+                        width={415}
+                        height={150}
+                        className=""
                     />
-                    <p>The Popular Siuted Sofa <br /> $99.00</p>
+                    <p className="text-lg font-semibold">The Popular Suited Sofa</p>
+                    <p className="text-sm text-[#007580]">$99.00</p>
                 </div>
-                <div className="m-2.5">
+                <div className="">
                     <Image
                         src="/images/black chair.png"
-                        alt="logo"
-                        width={245}
-                        height={200}
-                        className="w-61.25 h-50"
+                        alt="Black Chair"
+                        width={200}
+                        height={150}
+                        className=""
                     />
-                    <p>The Popular Siuted Sofa <br /> $99.00</p>
+                    <p className="text-lg font-semibold">The Popular Suited Sofa</p>
+                    <p className="text-sm text-[#007580]">$99.00</p>
                 </div>
-                <div className="m-2.5">
+                <div className="">
                     <Image
                         src="/images/black.png"
-                        alt="logo"
-                        width={245}
-                        height={200}
-                        className="w-61.25 h-50"
+                        alt="Black Chair"
+                        width={200}
+                        height={150}
+                        className=""
                     />
-                    <p>The Popular Siuted Sofa <br /> $99.00</p>
+                    <p className="text-lg font-semibold">The Popular Suited Sofa</p>
+                    <p className="text-sm text-[#007580]">$99.00</p>
                 </div>
             </div>
         </div>

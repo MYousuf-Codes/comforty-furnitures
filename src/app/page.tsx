@@ -5,7 +5,7 @@ import TopCategories from "@/components/TopCategories";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-white">
       <Hero />
       <Brands />
       <Featured />

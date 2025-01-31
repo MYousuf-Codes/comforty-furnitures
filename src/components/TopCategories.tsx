@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { client } from "@/sanity/lib/client"; // Ensure correct path to your Sanity client
-import { urlFor } from "@/sanity/lib/image"; // Adjust to your project structure
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import Link from "next/link"; // Import Link from next/router
+import Link from "next/link";
 
-// Type for category data
 interface ICategory {
   _id: string;
   title: string;
@@ -17,18 +16,21 @@ interface ICategory {
   products: number;
 }
 
-// Fetch Categories from Sanity
 const fetchCategories = async (): Promise<ICategory[]> => {
-  const query = `
-    *[_type == "categories"]{
-      _id,
-      title,
-      image,
-      products
-    }
-  `;
-  const categories = await client.fetch(query);
-  return categories;
+  try {
+    const query = `
+      *[_type == "categories"]{
+        _id,
+        title,
+        image,
+        products
+      }
+    `;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
 };
 
 const TopCategories: React.FC = () => {
@@ -44,32 +46,36 @@ const TopCategories: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full mt-4">
-      <div className="w-full sm:w-4/5 mx-auto">
-        <h1 className="text-3xl mb-6 text-center">Top Categories</h1>
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categories.map((category) => (
-            <div
-              key={category._id}
-              className="relative group rounded-lg overflow-hidden cursor-pointer"
-            >
-              {/* Category Image */}
-              {category.image && (
-                <Image
-                  src={urlFor(category.image).url()}
-                  alt={category.title}
-                  width={424}
-                  height={424}
-                  className="w-full h-full object-cover"
-                />
-              )}
+    <div className="px-4 sm:px-8 lg:px-16 py-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center sm:text-left px-4 sm:px-16">
+          Top Categories
+        </h2>
 
-              {/* Hover effect for shadow and text */}
-              <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex justify-center items-center text-white text-center p-4 rounded-lg">
-                <div className="text-lg">{category.title}</div>
-                <div className="text-sm">{category.products} Products</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 px-4 sm:px-16">
+          {categories.map((category) => (
+            <Link
+              href={`/category/${category._id}`}
+              key={category._id}
+              className="group relative rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 bg-white"
+            >
+              {category.image && (
+                <div className="w-full h-84">
+                  <Image
+                    src={urlFor(category.image).url()}
+                    alt={category.title}
+                    width={300}
+                    height={700}
+                    className="w-full h-full object-center rounded-md"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white text-center p-4">
+                <h3 className="text-lg font-bold">{category.title}</h3>
+                <p className="text-sm">{category.products} Products</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

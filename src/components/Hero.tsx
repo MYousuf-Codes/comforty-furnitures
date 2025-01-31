@@ -16,7 +16,7 @@ const Hero: React.FC = () => {
             Interior.
           </h1>
           <Link href="/products">
-            <button className="mt-5 md:mt-6 w-40 md:w-44 h-10 md:h-12 bg-[#029FAE] rounded-lg text-white font-bold text-base md:text-lg flex items-center justify-center hover:bg-[#027d89] transition-all">
+            <button className="mt-5 md:mt-6 w-40 md:w-44 h-10 md:h-12 bg-[#029FAE] rounded-lg text-white font-bold text-base md:text-lg flex items-center justify-center hover:bg-[#028d89] transition-all">
               Shop Now <i className="fa-solid fa-arrow-right ml-2"></i>
             </button>
           </Link>
