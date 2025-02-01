@@ -89,7 +89,7 @@ const CategoryPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <Link href={`/products/${product._id}`} key={product._id}>
-            <div className="group relative rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105">
+            <div className="group relative rounded-lg overflow-hidden">
               <Image
                 src={urlFor(product.image).url()}
                 alt={product.title}

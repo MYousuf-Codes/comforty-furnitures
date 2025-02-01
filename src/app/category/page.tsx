@@ -38,7 +38,7 @@ const CategoryList: React.FC = () => {
     }, []);
 
     return (
-        <div className="container bg-white max-w-7xl mx-auto px-4 py-6">
+        <div className="container bg-white max-w mx-auto px-4 py-6">
             <h2 className="text-3xl font-semibold mb-6">Categories</h2>
             <p className="text-lg mb-4">Browse products by categories</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
