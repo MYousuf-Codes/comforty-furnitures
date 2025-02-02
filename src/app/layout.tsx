@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PopUp from "@/components/PopUp";
 import { Providers } from "./providers"; // Import the Providers component
+import { ToastContainer } from "react-toastify"; // Import ToastContainer from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import styles for toast notifications
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers> {/* Wrap everything in the Providers component */}
+        <Providers>
           <PopUp />
           <Header />
           {children}
           <Footer />
+          <ToastContainer />
         </Providers>
       </body>
     </html>

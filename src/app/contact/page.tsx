@@ -43,7 +43,7 @@ const ContactPage: React.FC = () => {
                     </p>
                 </div>
 
-                <div className="max-w-4xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 bg-gray-50 rounded-lg p-8">
+                <div className="max-w-8xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 bg-gray-50 rounded-lg p-8">
                     {/* Contact Info Section */}
                     <div className="space-y-10 pt-8">
                         <div className="flex items-center gap-5">

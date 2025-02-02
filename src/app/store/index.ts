@@ -1,6 +1,7 @@
+// /src/app/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
-import cartReducer, { CartState } from "@/features/cart/cartSlice";
-import wishlistReducer, { WishlistState } from "@/features/wishlist/wishlistSlice";
+import cartReducer from "@/features/cart/cartSlice";  // Adjusted import path for cart
+import wishlistReducer from "@/features/wishlist/wishlistSlice";  // Adjusted import path for wishlist
 
 export const store = configureStore({
   reducer: {
@@ -9,6 +10,6 @@ export const store = configureStore({
   },
 });
 
-// Corrected: Avoid duplicate declaration of RootState
+// Correct type declarations
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

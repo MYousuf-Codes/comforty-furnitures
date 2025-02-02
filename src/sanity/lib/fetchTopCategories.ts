@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 
-export const fetchCategories = async () => {
+export const fetchTopCategories = async () => {
   try {
     const query = `
       *[_type == "categories"]{

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
@@ -8,16 +9,18 @@ const Footer: React.FC = () => {
       <div className="container mx-auto flex flex-wrap justify-between py-10 px-6 space-y-8 lg:space-y-0">
         {/* Column 1: Brand Info */}
         <div className="w-full lg:w-1/4">
-          <div className="flex items-center font-bold">
-            <Image
-              src="/images/chair.png"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="mr-2"
-            />
-            <p className="text-lg">Comforty</p>
-          </div>
+          <Link href="/">
+            <div className="flex items-center font-bold">
+              <Image
+                src="/images/chair.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="mr-2"
+              />
+              <p className="text-lg">Comforty</p>
+            </div>
+          </Link>
           <p className="text-sm text-gray-500 mt-4">
             Discover our premium furniture collection designed to bring style
             and comfort to your interiors.

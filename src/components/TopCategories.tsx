@@ -1,7 +1,7 @@
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCategories } from "@/sanity/lib/fetchCategories";
+import { fetchTopCategories } from "@/sanity/lib/fetchTopCategories";
 
 interface ICategory {
   _id: string;
@@ -15,7 +15,7 @@ interface ICategory {
 }
 
 const TopCategories = async () => {
-  const categories: ICategory[] = await fetchCategories();
+  const categories: ICategory[] = await fetchTopCategories();
 
   return (
     <div className="px-4 sm:px-8 lg:px-16 py-6 bg-white">

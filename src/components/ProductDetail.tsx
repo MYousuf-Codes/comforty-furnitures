@@ -1,11 +1,13 @@
 "use client"; // Client-side component for React hooks
 
-import { urlFor } from "@/sanity/lib/image";  // Ensure correct image URL generation
-import Image from "next/image";  // Next.js Image component
-import { useDispatch } from "react-redux";  // Redux for managing the cart
-import { addToCart } from "@/features/cart/cartSlice";  // Action for adding to cart
-import { useState } from "react";  // React state for managing quantity
-import { CiShoppingCart } from "react-icons/ci";  // Shopping cart icon
+import { urlFor } from "@/sanity/lib/image"; // Ensure correct image URL generation
+import Image from "next/image"; // Next.js Image component
+import { useDispatch } from "react-redux"; // Redux for managing the cart
+import { addToCart } from "@/features/cart/cartSlice"; // Action for adding to cart
+import { useState } from "react"; // React state for managing quantity
+import { CiShoppingCart } from "react-icons/ci"; // Shopping cart icon
+import { toast } from "react-toastify"; // Import toast
+import { useRouter } from "next/navigation";
 
 interface ProductProps {
   product: {
@@ -21,7 +23,7 @@ interface ProductProps {
 
 const ProductDetail = ({ product }: ProductProps) => {
   const dispatch = useDispatch();
-
+  const router = useRouter();
   // State to manage quantity of the product
   const [quantity, setQuantity] = useState(1);
 
@@ -35,6 +37,17 @@ const ProductDetail = ({ product }: ProductProps) => {
       quantity: quantity,
     };
     dispatch(addToCart(cartItem));
+
+    toast.success(`${product.title} has been added to the cart!`, {
+          position: "bottom-right",
+          autoClose: 3000, // Toast disappears in 3 seconds
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined, // Default progress bar for smooth closing
+          theme: "light", // Optional: Use "dark" if you prefer
+          onClick: () => router.push("/cart"), // Navigate to cart on click
+        });
   };
 
   // Increase quantity
@@ -69,7 +82,7 @@ const ProductDetail = ({ product }: ProductProps) => {
         <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
           {product.title}
         </h1>
-        
+
         <div className="flex items-center gap-3 mb-4">
           <span className="text-xl font-semibold text-white bg-cyan-600 rounded-full py-1 px-3">
             ${product.price} USD

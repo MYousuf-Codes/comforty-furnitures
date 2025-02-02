@@ -1,5 +1,4 @@
 "use client";
-
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
 import { IProducts } from "@/types/IProducts";
@@ -7,9 +6,13 @@ import { urlFor } from "@/sanity/lib/image";
 import { CiShoppingCart } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link"; // Import Link component for dynamic routing
+import { toast } from "react-toastify"; // Import toast
+import "react-toastify/dist/ReactToastify.css"; // Make sure you import styles
+import { useRouter } from "next/navigation";
 
 const ProductList = ({ products }: { products: IProducts[] }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // Handle adding to cart
   const handleAddToCart = (product: IProducts) => {
@@ -22,6 +25,18 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
         quantity: 1, // Default quantity is 1
       })
     );
+
+    // Show toast notification
+    toast.success(`${product.title} has been added to the cart!`, {
+      position: "bottom-right",
+      autoClose: 3000, // Toast disappears in 3 seconds
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined, // Default progress bar for smooth closing
+      theme: "light", // Optional: Use "dark" if you prefer
+      onClick: () => router.push("/cart"), // Navigate to cart on click
+    });
   };
 
   return (
@@ -35,15 +50,13 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 sm:px-16">
         {products.map((product) => (
           <div key={product._id} className="relative rounded-lg cursor-pointer bg-white">
-            
             {/* Link to Product Detail Page */}
             <Link href={`/products/${product._id}`} passHref>
               {/* Badge */}
               {product.badge && (
                 <span
-                  className={`absolute top-2 left-2 px-2 py-1 text-white text-sm font-semibold rounded-md ${
-                    product.badge === "New" ? "bg-green-500" : "bg-orange-500"
-                  }`}
+                  className={`absolute top-2 left-2 px-2 py-1 text-white text-sm font-semibold rounded-md ${product.badge === "New" ? "bg-green-500" : "bg-orange-500"
+                    }`}
                 >
                   {product.badge}
                 </span>

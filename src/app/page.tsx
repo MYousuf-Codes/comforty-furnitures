@@ -1,3 +1,4 @@
+// src/app/page.tsx
 import Brands from "@/components/Brands";
 import Featured from "@/components/Featured";
 import Hero from "@/components/Hero";

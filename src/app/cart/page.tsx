@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button, TextField } from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
+import { toast } from "react-toastify"; // Import toast for notifications
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -16,15 +17,18 @@ export default function Cart() {
   const handleQuantityChange = (id: string, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateQuantity({ id, quantity }));
+      toast.info(`Quantity of item ${id} updated to ${quantity}`); // Notify quantity change
     }
   };
 
   const handleRemoveItem = (id: string) => {
     dispatch(removeFromCart(id));
+    toast.error(`Item with id ${id} removed from the cart`); // Notify item removal
   };
 
   const handleAddToWishlist = (item: any) => {
     dispatch(addToWishlist(item));
+    toast.success(`${item.name} added to your wishlist!`); // Notify item added to wishlist
   };
 
   return (
@@ -67,20 +71,28 @@ export default function Cart() {
                   </div>
 
                   {/* Quantity and Price Section */}
-                  <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 mt-2">
-                    <div className="flex items-center">
-                      <h2 className="text-xs sm:text-sm font-semibold mr-2">Quantity</h2> {/* Added Quantity heading */}
-                      <TextField
-                        type="number"
-                        value={item.quantity}
-                        onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                        inputProps={{ min: 1 }}
-                        size="small"
-                        className="w-12 sm:w-16 md:w-24"
-                        variant="outlined"
-                      />
+                  <div className="flex flex-col sm:flex-row items-center sm:gap-4 mt-2 w-full lg:w-1/2 lg:items-end">
+                    {/* Quantity and Price on Desktop */}
+                    <div className="w-full flex flex-col sm:flex-row items-center justify-end gap-2 lg:gap-4">
+                      {/* Quantity Section */}
+                      <div className="flex items-center justify-between w-full sm:w-1/2">
+                        <h2 className="text-xs sm:text-sm font-semibold mr-2">Quantity</h2>
+                        <TextField
+                          type="number"
+                          value={item.quantity}
+                          onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                          inputProps={{ min: 1 }}
+                          size="small"
+                          className="w-full sm:w-24 md:w-28 lg:w-32"
+                          variant="outlined"
+                        />
+                      </div>
+
+                      {/* Price Section */}
+                      <span className="text-xs sm:text-sm font-semibold mt-1 sm:mt-0 w-full sm:w-1/2 text-right">
+                        MRP: ${item.price}
+                      </span>
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold mt-1">MRP: ${item.price}</span>
                   </div>
                 </div>
               ))}
@@ -106,11 +118,12 @@ export default function Cart() {
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
-            <Button
-              className="bg-cyan-600 text-white hover:bg-cyan-700 text-sm sm:text-base font-semibold py-2 sm:py-3 mt-6 transition-all"
+            <button
+              type="submit"
+              className="w-full py-3 bg-black text-white rounded-md hover:bg-gray-800 transition"
             >
-              Checkout
-            </Button>
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       </div>
