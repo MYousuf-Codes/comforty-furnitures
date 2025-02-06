@@ -1,4 +1,5 @@
 "use client";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog"; // Import Dialog, DialogTrigger, DialogContent, and DialogTitle from ShadCN UI
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,7 +47,11 @@ const Header: React.FC = () => {
             </Link>
 
             {/* Mobile Menu Icon */}
-            <button className="sm:hidden text-gray-700 text-2xl" onClick={toggleDrawer}>
+            <button
+              className="sm:hidden text-gray-700 text-2xl"
+              onClick={toggleDrawer}
+              aria-label="Toggle menu"
+            >
               {isDrawerOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
             </button>
           </div>
@@ -59,31 +64,21 @@ const Header: React.FC = () => {
           {/* Navigation Links */}
           <nav className="hidden sm:flex">
             <ul className="flex space-x-6 text-sm font-medium">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/products", label: "Products" },
-                { href: "/category", label: "Category" },
-                { href: "/about", label: "About" },
-                { href: "/contact", label: "Contact" },
-              ].map(({ href, label }) => (
-                <li key={href} className="relative">
-                  <Link href={href}>
-                    <span
-                      className={`relative cursor-pointer transition-all duration-300 ${
-                        pathname === href
-                          ? "text-[#379393] font-bold"
-                          : "text-gray-700 hover:text-[#379393]"
-                      }`}
-                    >
-                      {label}
-                      {/* Underline Animation */}
+              {[{ href: "/", label: "Home" }, { href: "/products", label: "Products" }, { href: "/category", label: "Category" }, { href: "/about", label: "About" }, { href: "/contact", label: "Contact" }].map(
+                ({ href, label }) => (
+                  <li key={href} className="relative">
+                    <Link href={href}>
                       <span
-                        className="absolute left-0 bottom-0 h-[2px] w-0 hover:bg-[#379393] transition-all duration-300 origin-left hover:w-full"
-                      ></span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
+                        className={`relative cursor-pointer transition-all duration-300 ${pathname === href ? "text-[#379393] font-bold" : "text-gray-700 hover:text-[#379393]"}`}
+                      >
+                        {label}
+                        {/* Underline Animation */}
+                        <span className="absolute left-0 bottom-0 h-[2px] w-0 hover:bg-[#379393] transition-all duration-300 origin-left hover:w-full"></span>
+                      </span>
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </nav>
 
@@ -94,35 +89,33 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {isDrawerOpen && (
-        <div className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg z-50 p-6 sm:hidden">
+      {/* Mobile Drawer (Dialog) */}
+      <Dialog open={isDrawerOpen} onOpenChange={toggleDrawer}>
+        <DialogTrigger asChild>
+          {/* Button can be used for triggering drawer */}
+        </DialogTrigger>
+        <DialogContent className="sm:hidden bg-white shadow-lg p-6">
+          <DialogTitle>Menu</DialogTitle> {/* Added DialogTitle for accessibility */}
           <nav>
             <ul className="space-y-4 text-sm">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/products", label: "Products" },
-                { href: "/category", label: "Category" },
-                { href: "/about", label: "About" },
-                { href: "/contact", label: "Contact" },
-              ].map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href}>
-                    <span
-                      className={`block py-2 ${
-                        pathname === href ? "text-[#379393] font-bold" : "text-gray-700"
-                      }`}
-                      onClick={toggleDrawer}
-                    >
-                      {label}
-                    </span>
-                  </Link>
-                </li>
-              ))}
+              {[{ href: "/", label: "Home" }, { href: "/products", label: "Products" }, { href: "/category", label: "Category" }, { href: "/about", label: "About" }, { href: "/contact", label: "Contact" }].map(
+                ({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href}>
+                      <span
+                        className={`block py-2 ${pathname === href ? "text-[#379393] font-bold" : "text-gray-700"}`}
+                        onClick={toggleDrawer}
+                      >
+                        {label}
+                      </span>
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </nav>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };

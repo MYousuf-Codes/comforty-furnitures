@@ -9,5 +9,6 @@ export interface IProducts {
   image: string;
   tags?: string[];
   description?: string;
+  category: string;
   inventory?: number;
 }

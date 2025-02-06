@@ -9,6 +9,9 @@ export const fetchProducts = async (): Promise<IProducts[]> => {
     priceWithoutDiscount,
     badge,
     image,
+    category->{
+    title
+  },
     tags
   }`;
 

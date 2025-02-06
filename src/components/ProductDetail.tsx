@@ -39,15 +39,15 @@ const ProductDetail = ({ product }: ProductProps) => {
     dispatch(addToCart(cartItem));
 
     toast.success(`${product.title} has been added to the cart!`, {
-          position: "bottom-right",
-          autoClose: 3000, // Toast disappears in 3 seconds
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined, // Default progress bar for smooth closing
-          theme: "light", // Optional: Use "dark" if you prefer
-          onClick: () => router.push("/cart"), // Navigate to cart on click
-        });
+      position: "bottom-right",
+      autoClose: 3000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      onClick: () => router.push("/cart"),
+    });
   };
 
   // Increase quantity
@@ -65,7 +65,7 @@ const ProductDetail = ({ product }: ProductProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-6 py-10 bg-white">
+    <div className="flex flex-col md:flex-row items-center justify-center px-6 py-10 bg-white">
       {/* Left: Product Image */}
       <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <Image
@@ -73,7 +73,7 @@ const ProductDetail = ({ product }: ProductProps) => {
           alt={product.title}
           width={400}
           height={400}
-          className="rounded-lg object-contain"
+          className="rounded-none object-contain"
         />
       </div>
 
@@ -98,32 +98,33 @@ const ProductDetail = ({ product }: ProductProps) => {
 
         <p className="text-gray-700 text-sm mb-6">{product.description}</p>
 
-        <p className="text-gray-700 text-sm mb-6 font-semibold">
-          In stock: {product.inventory}
+        <p className={`text-base mb-6 font-semibold ${product.inventory === 0 ? "text-red-600" : product.inventory < 5 ? "text-red-600" : "text-green-600"}`}>
+          {product.inventory === 0 ? "Out of Stock" : `In stock: ${product.inventory}`}
         </p>
 
         {/* Quantity Section */}
         <div className="flex items-center gap-4 mb-6">
           <p className="text-gray-700 text-lg font-semibold">Quantity:</p>
-          {/* Increment Button */}
-          <button
-            onClick={increaseQuantity}
-            className="bg-cyan-600 text-white text-lg px-4 py-2 rounded-full hover:bg-cyan-700"
-          >
-            +
-          </button>
-          {/* Display Quantity */}
-          <span className="text-gray-700 text-lg font-semibold">{quantity}</span>
+
           {/* Decrement Button */}
           <button
             onClick={decreaseQuantity}
             disabled={quantity === 1} // Disable minus button if quantity is 1
             className={`${quantity === 1
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-cyan-600 hover:bg-cyan-700"
-              } text-white text-lg px-4 py-2 rounded-full`}
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-cyan-600 hover:bg-cyan-700"
+              } text-white text-lg px-4 py-2 rounded-3xl`}
           >
             -
+          </button>
+          {/* Display Quantity */}
+          <span className="text-gray-700 text-lg font-semibold">{quantity}</span>
+          {/* Increment Button */}
+          <button
+            onClick={increaseQuantity}
+            className="bg-cyan-600 text-white text-lg px-4 py-2 rounded-3xl hover:bg-cyan-700"
+          >
+            +
           </button>
         </div>
 

@@ -20,7 +20,6 @@ const MakesDifferent = () => {
           </p>
         </div>
 
-        {/* Made by True Artisans */}
         <div className="flex flex-col items-start bg-gray-100 p-6 rounded-lg text-cyan-400 shadow-sm">
           <FaCheckCircle className="text-cyan-400 text-3xl sm:text-4xl mb-4" />
           <h2 className="text-lg sm:text-xl mb-2">Made by True Artisans</h2>

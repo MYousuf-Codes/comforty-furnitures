@@ -1,36 +1,49 @@
 "use client";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { removeFromCart, updateQuantity } from "@/features/cart/cartSlice";
 import { addToWishlist } from "@/features/wishlist/wishlistSlice";
 import Image from "next/image";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
-import { toast } from "react-toastify"; // Import toast for notifications
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const total = useSelector((state: RootState) => state.cart.total);
   const dispatch = useDispatch();
+  const router = useRouter(); // Initialize the router
 
   const handleQuantityChange = (id: string, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateQuantity({ id, quantity }));
-      toast.info(`Quantity of item ${id} updated to ${quantity}`); // Notify quantity change
+      toast.info(`Quantity of item ${id} updated to ${quantity}`);
     }
   };
 
   const handleRemoveItem = (id: string) => {
     dispatch(removeFromCart(id));
-    toast.error(`Item with id ${id} removed from the cart`); // Notify item removal
+    toast.error(`Item with id ${id} removed from the cart`);
   };
 
   const handleAddToWishlist = (item: any) => {
     dispatch(addToWishlist(item));
-    toast.success(`${item.name} added to your wishlist!`); // Notify item added to wishlist
+    toast.success(`${item.name} added to your wishlist!`);
   };
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleProceedToCheckout = async () => {
+    setIsProcessing(true);
+    try {
+      await router.push("/checkout");
+    } finally {
+      setIsProcessing(false); // If navigation is fast, reset immediately
+    }
+  };
   return (
     <main>
       <div className="container mx-auto bg-white p-6 md:p-8 lg:px-24 lg:py-12 max-w-screen-2xl">
@@ -41,7 +54,7 @@ export default function Cart() {
             <div className="flex flex-col gap-6">
               {cartItems.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.name}
                   className="flex flex-col sm:flex-row items-center sm:justify-between p-5 bg-white shadow-md rounded-lg transition-all duration-300 hover:shadow-lg"
                 >
                   <div className="flex items-center gap-4 sm:gap-6">
@@ -49,8 +62,8 @@ export default function Cart() {
                       src={item.image}
                       alt={item.name}
                       className="rounded-lg object-cover"
-                      width={90}  // Reduced width for small screens
-                      height={90} // Reduced height for small screens
+                      width={90}
+                      height={90}
                     />
                     <div>
                       <h1 className="font-semibold text-sm sm:text-lg">{item.name}</h1>
@@ -59,12 +72,12 @@ export default function Cart() {
                         <AiOutlineDelete
                           onClick={() => handleRemoveItem(item.id)}
                           className="text-red-500 cursor-pointer hover:text-red-700 transition-colors"
-                          size={20}  // Reduced size for small screens
+                          size={20}
                         />
                         <FaHeart
                           onClick={() => handleAddToWishlist(item)}
                           className="text-gray-500 cursor-pointer hover:text-red-500 transition-colors"
-                          size={20}  // Reduced size for small screens
+                          size={20}
                         />
                       </div>
                     </div>
@@ -120,9 +133,12 @@ export default function Cart() {
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-black text-white rounded-md hover:bg-gray-800 transition"
+              onClick={handleProceedToCheckout}
+              className={`w-full py-3 rounded-md transition ${isProcessing ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
+                } text-white`}
+              disabled={isProcessing}
             >
-              Proceed to Checkout
+              {isProcessing ? "Processing..." : "Proceed to Checkout"}
             </button>
           </div>
         </div>
