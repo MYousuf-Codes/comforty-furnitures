@@ -1,12 +1,12 @@
 "use client"; // Client-side component for React hooks
 
-import { urlFor } from "@/sanity/lib/image"; // Ensure correct image URL generation
-import Image from "next/image"; // Next.js Image component
-import { useDispatch } from "react-redux"; // Redux for managing the cart
-import { addToCart } from "@/features/cart/cartSlice"; // Action for adding to cart
-import { useState } from "react"; // React state for managing quantity
-import { CiShoppingCart } from "react-icons/ci"; // Shopping cart icon
-import { toast } from "react-toastify"; // Import toast
+import { urlFor } from "@/sanity/lib/image"; 
+import Image from "next/image"; 
+import { useDispatch } from "react-redux"; 
+import { addToCart } from "@/features/cart/cartSlice"; 
+import { useState } from "react";
+import { CiShoppingCart } from "react-icons/ci"; 
+import { toast } from "react-toastify"; 
 import { useRouter } from "next/navigation";
 
 interface ProductProps {

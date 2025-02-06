@@ -8,7 +8,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 
-const Header: React.FC = () => {
+const Navbar: React.FC = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
 
@@ -120,4 +120,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default Navbar;

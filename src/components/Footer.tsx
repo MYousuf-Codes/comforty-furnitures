@@ -1,8 +1,31 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      setMessage("Subscribed successfully!");
+      setEmail("");
+    } else {
+      setMessage("Subscription failed. Try again.");
+    }
+  };
+
   return (
     <footer className="bg-white w-full border-t border-gray-200">
       {/* Main Footer Content */}
@@ -64,16 +87,23 @@ const Footer: React.FC = () => {
         {/* Column 4: Newsletter */}
         <div className="w-full lg:w-1/4">
           <p className="text-gray-700 font-semibold mb-4">Newsletter</p>
-          <div className="flex items-center">
+          <form onSubmit={handleSubmit} className="flex items-center">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
               className="border border-gray-300 rounded-md p-2 flex-grow placeholder-gray-500 text-sm"
+              required
             />
-            <button className="ml-2 bg-[#029FAE] text-white rounded-md px-4 py-2 hover:bg-[#027d89] transition">
+            <button
+              type="submit"
+              className="ml-2 bg-[#029FAE] text-white rounded-md px-4 py-2 hover:bg-[#027d89] transition"
+            >
               Subscribe
             </button>
-          </div>
+          </form>
+          {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
           <p className="text-sm text-gray-500 mt-4">
             Subscribe to our newsletter for the latest updates and offers.
           </p>
@@ -85,9 +115,9 @@ const Footer: React.FC = () => {
       {/* Footer Bottom */}
       <div className="container mx-auto flex flex-wrap justify-between items-center px-6 py-4 text-sm text-gray-500">
         <Link href="https://linkedin.com/in/myousuf-codes">
-        <p className="w-full lg:w-auto text-center lg:text-left mb-4 lg:mb-0">
-          Developed by <span className="text-black font-semibold cursor-pointer">Muhammad Yousuf</span>
-        </p>
+          <p className="w-full lg:w-auto text-center lg:text-left mb-4 lg:mb-0">
+            Developed by <span className="text-black font-semibold cursor-pointer">Muhammad Yousuf</span>
+          </p>
         </Link>
         <div className="w-full lg:w-auto flex justify-center lg:justify-end">
           <Image

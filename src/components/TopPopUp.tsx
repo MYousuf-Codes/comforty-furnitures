@@ -3,18 +3,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FaAngleDown, FaAngleUp, FaCircle, FaCheck } from "react-icons/fa";
 
-const PopUp: React.FC = () => {
+function  TopPopUp  () {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className="top-header bg-[#272343] w-full h-[45px] flex justify-center items-center text-white text-sm">
       <div className="w-[90%] md:w-[80%] flex justify-between items-center">
-        {/* Shipping Notice */}
+
         <p className="flex items-center">
           <FaCheck className="mr-2" /> Free Shipping On All Orders Over $50
         </p>
 
-        {/* Expandable Section */}
         <div className="relative">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
@@ -38,4 +37,4 @@ const PopUp: React.FC = () => {
   );
 };
 
-export default PopUp;
+export default TopPopUp;

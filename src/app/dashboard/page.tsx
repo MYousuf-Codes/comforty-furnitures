@@ -1,10 +1,11 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import Container from "@/components/ui/container"; 
+import Container from "@/components/ui/container";
 
-const OrderStatusPage: React.FC = () => {
+const Dashboard: React.FC = () => {
   return (
     <Container className="flex h-screen items-center justify-center">
       <motion.div
@@ -25,4 +26,5 @@ const OrderStatusPage: React.FC = () => {
     </Container>
   );
 };
-export default OrderStatusPage;
+
+export default Dashboard;

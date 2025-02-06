@@ -1,78 +1,88 @@
-"use client"
-import React from 'react';
-import { useState } from 'react';
-import { FaLocationDot } from "react-icons/fa6";
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaClock } from "react-icons/fa6";
+"use client";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FaLocationDot, FaPhone, FaClock } from "react-icons/fa6";
+import emailjs from "emailjs-com" // Import EmailJS
+
+const schema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email format"),
+    subject: z.string().optional(),
+    message: z.string().min(1, "Message is required"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const ContactPage: React.FC = () => {
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
+    });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const name = formData.get('name') as string;
-        const email = formData.get('email') as string;
-        const subject = formData.get('subject') as string;
-        const message = formData.get('message') as string;
-
-        const newErrors: { [key: string]: string } = {};
-
-        if (!name) newErrors.name = 'Name is required';
-        if (!email) newErrors.email = 'Email is required';
-        if (!message) newErrors.message = 'Message is required';
-
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-        } else {
-            setErrors({});
-            // Handle form submission logic here
-            console.log({ name, email, subject, message });
-        }
+    const serviceId = process.env.EMAIL_SERVICE_ID as string;
+    const templateId = process.env.EMAIL_TEMPLATE_ID as string;
+    const userId = process.env.EMAIL_USER_ID as string;
+    
+    const onSubmit = (data: FormData) => {
+        // Send email using EmailJS
+        emailjs
+            .send(
+                serviceId, // Your service ID
+                templateId, // Your template ID
+                data, // Form data will be sent to the email template
+                userId // Your EmailJS user ID
+            )
+            .then(
+                (response) => {
+                    console.log("Success:", response);
+                    alert("Your message has been sent!");
+                },
+                (error) => {
+                    console.error("Error:", error);
+                    alert("There was an error sending your message. Please try again.");
+                }
+            );
     };
 
     return (
-        <main className='bg-white'>
-            <div className="container mx-auto px-4 py-10 ">
-                {/* Header Section */}
+        <main className="bg-white">
+            <div className="container mx-auto px-4 py-10">
+
                 <div className="text-center max-w-xl mx-auto mb-10">
                     <h1 className="text-3xl font-bold text-gray-800">Get In Touch with Us</h1>
                     <p className="text-gray-600 mt-4">
-                        {`For more information about our products and services, feel free to ask.
-                    Our team is always here to help you out. Don’t hesitate!`}
+                        {`We are committed to providing exceptional service and support. 
+                        If you have any questions or need further assistance, please reach out to us. 
+                        Our dedicated team is here to ensure your experience with us is seamless and satisfactory.`}
                     </p>
                 </div>
 
                 <div className="max-w-8xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 bg-gray-50 rounded-lg p-8">
-                    {/* Contact Info Section */}
+                    {/* Contact Info  */}
                     <div className="space-y-10 pt-8">
                         <div className="flex items-center gap-5">
-                            <i className="fa-solid fa-location-dot text-black text-xl"></i>
+                            <FaLocationDot className="text-2xl" />
                             <div>
-                                <h3 className="font-semibold text-black flex gap-2 text-xl">
-                                    <FaLocationDot className='text-2xl' />
-                                    Address</h3>
+                                <h3 className="font-semibold text-black text-xl">Address</h3>
                                 <p className="text-gray-600">Furniture Market, Suparco Road, near Sohni Chalet</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-5">
-                            <i className="fa-solid fa-phone text-black text-xl"></i>
+                            <FaPhone className="text-2xl" />
                             <div>
-                                <h3 className="font-semibold text-black flex gap-2 text-xl">
-                                    <FaPhoneAlt className='text-2xl' />
-                                    Phone</h3>
-                                <p className="text-gray-600">
-                                    Mobile: 0314 2209326 <br />
-                                    Phone: 0314 2209326
-                                </p>
+                                <h3 className="font-semibold text-black text-xl">Phone</h3>
+                                <p className="text-gray-600">Mobile: 0314 2209326</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-5">
-                            <i className="fa-solid fa-clock text-black text-xl"></i>
+                            <FaClock className="text-2xl" />
                             <div>
-                                <h3 className="font-semibold text-black flex gap-2 text-xl">
-                                    <FaClock className='text-2xl' />
-                                    Working Hours</h3>
+                                <h3 className="font-semibold text-black text-xl">Working Hours</h3>
                                 <p className="text-gray-600">Mon-Fri: 9:00 AM - 6:00 PM</p>
                             </div>
                         </div>
@@ -80,32 +90,32 @@ const ContactPage: React.FC = () => {
 
                     {/* Contact Form Section */}
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Name</label>
                                 <input
                                     type="text"
-                                    name="name"
+                                    {...register("name")}
                                     placeholder="Your Name"
                                     className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 />
-                                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Email Address</label>
                                 <input
                                     type="email"
-                                    name="email"
+                                    {...register("email")}
                                     placeholder="you@example.com"
                                     className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 />
-                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Subject</label>
                                 <input
                                     type="text"
-                                    name="subject"
+                                    {...register("subject")}
                                     placeholder="Optional"
                                     className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 />
@@ -113,12 +123,12 @@ const ContactPage: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Message</label>
                                 <textarea
-                                    name="message"
+                                    {...register("message")}
                                     rows={5}
                                     placeholder="Type your message here..."
                                     className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 ></textarea>
-                                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                             </div>
                             <button
                                 type="submit"
@@ -127,31 +137,6 @@ const ContactPage: React.FC = () => {
                                 Submit
                             </button>
                         </form>
-                    </div>
-                </div>
-
-                {/* Features Section */}
-                <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div className="flex items-center gap-4">
-                        <i className="fa-solid fa-trophy text-[#029FAE] text-3xl"></i>
-                        <div>
-                            <h3 className="font-semibold text-gray-800">High Quality</h3>
-                            <p className="text-gray-600">Crafted from top materials</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <i className="fa-solid fa-shield-alt text-[#029FAE] text-3xl"></i>
-                        <div>
-                            <h3 className="font-semibold text-gray-800">Warranty Protection</h3>
-                            <p className="text-gray-600">Over 2 Years</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <i className="fa-regular fa-face-smile text-[#029FAE] text-3xl"></i>
-                        <div>
-                            <h3 className="font-semibold text-gray-800">24/7 Support</h3>
-                            <p className="text-gray-600">Dedicated support team</p>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -8,9 +8,7 @@ const AboutPage = () => {
         <center>
 
             <div className="container mx-auto px-5 md:px-10 mb-12">
-                {/* About Us Section */}
                 <div className="w-full h-auto mt-5 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-4">
-                    {/* Text Section */}
                     <div className="ml-10 flex-1 bg-[#007580] rounded-lg p-6 text-white h-full flex flex-col justify-between md:h-[278px] md:w-[473px]">
                         <div>
                             <h1 className="text-3xl font-bold mb-4">About Us - Comforty</h1>
@@ -61,7 +59,6 @@ const AboutPage = () => {
                     ))}
                 </div>
 
-                {/* Our Popular Products */}
                 <h2 className="text-2xl font-semibold mt-12 text-center">Our Popular Products</h2>
                 <div className="flex flex-row justify-center mt-8 gap-2">
                     {[{
