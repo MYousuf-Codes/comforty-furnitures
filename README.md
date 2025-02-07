@@ -1,57 +1,96 @@
-# Comforty Furnitures
+# 🏪 Comforty Furnitures – Full-Stack E-commerce Platform
 
-Welcome to **Comforty Furnitures**, a comprehensive full-stack e-commerce platform designed to provide users with a seamless online furniture shopping experience.
+Comforty Furnitures is a modern full-stack e-commerce platform that offers an intuitive and user-friendly experience for customers looking to buy high-quality furniture online. The platform is optimized for performance, accessibility, SEO, and best practices.
 
-## Table of Contents
+## 🚀 Live Demo
+🔗 [Comforty Furnitures](https://comforty-furnitures.vercel.app/)
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+---
 
-## Introduction
+## 📌 Key Features
 
-**Comforty Furnitures** is an online marketplace that offers a wide range of furniture products. The platform is designed with a focus on user experience, performance, and scalability.
+✅ **Responsive UI/UX** – Seamless experience across all devices.  
+✅ **Dynamic Product Listings** – Furniture categories with detailed descriptions.  
+✅ **Cart & Checkout System** – Smooth shopping experience with secure payments.  
+✅ **User Authentication** – Sign up, login, and profile management.  
+✅ **Order Management** – Track and manage orders in real-time.  
+✅ **Wishlist Functionality** – Save products for later.  
+✅ **Admin Dashboard** – Manage products, orders, and users efficiently.  
+✅ **Optimized Performance** – High speed, accessibility, and SEO scores.  
 
-## Features
+---
 
-- **User Authentication:** Secure user registration and login functionalities.
-- **Product Catalog:** Browse a diverse collection of furniture items with detailed descriptions and high-quality images.
-- **Search and Filtering:** Efficient search and filter options to help users find products quickly.
-- **Shopping Cart:** Add, remove, and manage products in the shopping cart with real-time updates.
-- **Checkout Process:** Streamlined checkout process with order summary and payment integration.
-- **Order Management:** Users can view their order history and track current orders.
-- **Responsive Design:** Optimized for various devices, ensuring a consistent experience across desktops, tablets, and smartphones.
+## 🛠️ Tech Stack
 
-## Technologies Used
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB  
+- **Authentication:** NextAuth.js  
+- **Deployment:** Vercel  
 
-- **Frontend:**
-  - [Next.js](https://nextjs.org/): React framework for server-side rendering and static site generation.
-  - [Tailwind CSS](https://tailwindcss.com/): Utility-first CSS framework for styling.
-  - [Redux Toolkit](https://redux-toolkit.js.org/): State management for handling complex application states.
-  - [ShadCN UI](https://shadcn.dev/): Component library for building accessible and customizable UI components.
-  - [Material UI](https://mui.com/): React component library for implementing Google's Material Design.
+---
 
-- **Backend:**
-  - [Sanity.io](https://www.sanity.io/): Headless CMS for managing and delivering content.
-  - [NextAuth.js](https://next-auth.js.org/): Authentication for Next.js applications.
+## ⚡ Performance Reports
 
-- **Database:**
-  - [MongoDB](https://www.mongodb.com/): NoSQL database for storing user and product data.
+### **PageSpeed Insights**
+- 📱 **Mobile Report:** [View Report](https://pagespeed.web.dev/analysis/https-comforty-furnitures-vercel-app/zg196xd0h6?form_factor=mobile)  
+- 💻 **Desktop Report:** [View Report](https://pagespeed.web.dev/analysis/https-comforty-furnitures-vercel-app/zg196xd0h6?form_factor=desktop)  
 
-- **Deployment:**
-  - [Vercel](https://vercel.com/): Platform for frontend deployments.
+### **GTmetrix**
+- 📊 **Performance Report:** [View Report](https://gtmetrix.com/reports/comforty-furnitures.vercel.app/iagOBmft/)  
 
-## Installation
+### **Lighthouse**
+- 🌟 **Lighthouse Report:** [View Report](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Fcomforty-furnitures.vercel.app%2F&strategy=desktop)  
 
-To set up the project locally:
+---
 
-1. **Clone the repository:**
+## 💽 Installation & Setup
 
-   ```bash
-   git clone https://github.com/MYousuf-Codes/comforty-furnitures.git
-   cd comforty-furnitures
+### **Clone the repository**
+```bash
+git clone https://github.com/MYousuf-Codes/comforty-furnitures.git
+cd comforty-furnitures
+```
+
+### **Install dependencies**
+```bash
+npm install
+```
+
+### **Run the development server**
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 💡 Contributing
+
+We welcome contributions to enhance the platform. Follow these steps:
+
+1. **Fork the repository.**  
+2. **Create a new branch:** `git checkout -b feature/YourFeature`  
+3. **Commit your changes:** `git commit -m 'Add YourFeature'`  
+4. **Push to the branch:** `git push origin feature/YourFeature`  
+5. **Open a pull request.**  
+
+---
+
+## 📚 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 📞 Contact
+
+For inquiries or support, reach out to:
+
+- **Developer:** Muhammad Yousuf  
+- **GitHub:** [MYousuf-Codes](https://github.com/MYousuf-Codes)  
+- **Email:** yousufhere.dev@gmail.com  
+
+---
+
+### 🌟 Thank you for visiting Comforty Furnitures! We hope you have a great shopping experience.
