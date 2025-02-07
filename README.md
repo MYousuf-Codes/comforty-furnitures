@@ -45,7 +45,6 @@ Welcome to **Comforty Furnitures**, a comprehensive full-stack e-commerce platfo
 
 - **Deployment:**
   - [Vercel](https://vercel.com/): Platform for frontend deployments.
-  - [Railway](https://railway.app/): Infrastructure platform for backend services.
 
 ## Installation
 
