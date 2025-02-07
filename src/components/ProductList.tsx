@@ -23,7 +23,7 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
   const [sort, setSort] = useState("default");
   const [priceRange, setPriceRange] = useState("all");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -85,43 +85,12 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
       <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
 
         {/* Desktop Filters */}
-        <div className="hidden lg:flex space-x-4 items-center">
-          <Select onValueChange={setFilter} defaultValue={filter}>
-            <SelectTrigger><SelectValue placeholder="All Categories" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="wing-chair">Wing Chair</SelectItem>
-              <SelectItem value="wooden-chair">Wooden Chair</SelectItem>
-              <SelectItem value="office-chair">Office Chair</SelectItem>
-            </SelectContent>
-          </Select>
+        Price (Low to High) & Price (High to Low)
 
-          <Select onValueChange={setSort} defaultValue={sort}>
-            <SelectTrigger><SelectValue placeholder="Sort by" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Sort By</SelectItem>
-              <SelectItem value="priceLow">Price (Low to High)</SelectItem>
-              <SelectItem value="priceHigh">Price (High to Low)</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={setPriceRange} defaultValue={priceRange}>
-            <SelectTrigger><SelectValue placeholder="All Prices" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Prices</SelectItem>
-              <SelectItem value="under10">Under $10</SelectItem>
-              <SelectItem value="10to30">$10 - $30</SelectItem>
-              <SelectItem value="30to50">$30 - $50</SelectItem>
-              <SelectItem value="50to100">$50 - $100</SelectItem>
-              <SelectItem value="100plus">$100+</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
 
         {/* Mobile Filter Button */}
         <Dialog>
           <DialogTrigger asChild>
-            {/* Directly use the Button without wrapping it with another Button */}
             <Button variant="default" className="lg:hidden">
               <Filter className="mr-2" /> Filters
             </Button>
