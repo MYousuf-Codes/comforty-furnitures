@@ -1,0 +1,10 @@
+,,,,,,,,
+,,,,,,,,
+TEST ID,TEST CASE DESCRIPTION,TEST STEPS,EXPECTED RESULT,ACTUAL RESULT,STATUS,SEVERITY LEVEL,ASSIGNED TO,REMARKS
+FCP,First Contentful Paint,Load the homepage and measure the time until the first content is painted.,FCP should be under 1.8 seconds.,1.2 seconds,Pass,Low,-,Performance is within acceptable range.
+LCP,Largest Contentful Paint,Load the homepage and measure the time until the largest content element is painted.,LCP should be under 2.5 seconds.,0.5 s,Pass,Medium,-,Slight delay; consider optimizing large images.
+TBT,Total Blocking Time,Interact with the page and measure the total blocking time.,TBT should be under 300 ms.,20 ms,Pass,Medium,-,High TBT; review long tasks and optimize.
+CLS,Cumulative Layout Shift,Navigate through the site and observe any unexpected layout shifts.,CLS should be under 0.1.,0.05,Pass,Low,-,Layout stability is good.
+Accessibility,Image Alt Attributes,Inspect images to ensure they have descriptive alt attributes.,All images should have alt attributes.,5 images missing alt text,Fail,High,-,Add descriptive alt text to all images.
+Best Practices,HTTPS Usage,Check if the site is served over HTTPS.,Site should be served over HTTPS.,Site is served over HTTPS,Pass,Low,-,No issues found.
+SEO,Meta Descriptions,Verify that each page has a meta description.,All pages should have meta descriptions.,Homepage missing meta description,Fail,Medium,-,Add a meta description to the homepage.
