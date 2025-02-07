@@ -23,7 +23,7 @@ Comforty Furnitures is a modern full-stack e-commerce platform that offers an in
 ## 🛠️ Tech Stack
 
 - **Frontend:** Next.js, React, TypeScript, Tailwind CSS  
-- **Backend:** Node.js, Express.js  
+- **Backend:** Node.js, Next.js
 - **Database:** MongoDB  
 - **Authentication:** NextAuth.js  
 - **Deployment:** Vercel  
