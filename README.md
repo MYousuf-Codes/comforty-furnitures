@@ -1,4 +1,4 @@
-# 🏪 Comforty Furnitures – Full-Stack E-commerce Platform
+# 🛒 Comforty Furnitures – Full-Stack E-commerce Platform
 
 Comforty Furnitures is a modern full-stack e-commerce platform that offers an intuitive and user-friendly experience for customers looking to buy high-quality furniture online. The platform is optimized for performance, accessibility, SEO, and best practices.
 
