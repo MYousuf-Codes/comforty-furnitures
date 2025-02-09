@@ -1,7 +1,6 @@
-// /src/features/cart/cartSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define types for CartItem and CartState
+// Define types for CartItem
 export interface CartItem {
   id: string;
   name: string;

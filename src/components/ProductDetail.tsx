@@ -1,4 +1,4 @@
-"use client"; // Client-side component for React hooks
+"use client"; 
 
 import { urlFor } from "@/sanity/lib/image"; 
 import Image from "next/image"; 

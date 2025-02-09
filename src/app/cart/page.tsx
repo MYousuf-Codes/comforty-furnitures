@@ -9,29 +9,38 @@ import { TextField } from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { useRouter } from "next/navigation";
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const total = useSelector((state: RootState) => state.cart.total);
   const dispatch = useDispatch();
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const handleQuantityChange = (id: string, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateQuantity({ id, quantity }));
-      toast.info(`Quantity of item ${id} updated to ${quantity}`);
+      toast.info(`Quantity of item ${name} updated to ${quantity}`);
     }
   };
 
-  const handleRemoveItem = (id: string) => {
-    dispatch(removeFromCart(id));
-    toast.error(`Item with id ${id} removed from the cart`);
+  const handleRemoveItem = (name: string) => {
+    dispatch(removeFromCart(name));
+    toast.error(`Item with id ${name} removed from the cart`);
   };
 
   const handleAddToWishlist = (item: any) => {
     dispatch(addToWishlist(item));
-    toast.success(`${item.name} added to your wishlist!`);
+    toast.success(`${item.name} added to your wishlist!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      onClick: () => router.push("/wishlist"),
+    });
   };
 
   const [isProcessing, setIsProcessing] = useState(false);

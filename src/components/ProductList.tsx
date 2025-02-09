@@ -5,14 +5,14 @@ import { addToCart } from "@/features/cart/cartSlice";
 import { IProducts } from "@/types/IProducts";
 import { urlFor } from "@/sanity/lib/image";
 import { CiShoppingCart } from "react-icons/ci";
-import { FiArrowRight } from "react-icons/fi"; // Forward arrow icon
+import { FiArrowRight } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogTitle, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Filter } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -24,6 +24,7 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
   const [priceRange, setPriceRange] = useState("all");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [quantity] = useState(1);
+  const [filtersApplied, setFiltersApplied] = useState(false);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -31,6 +32,11 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
     }, 300);
     return () => clearTimeout(handler);
   }, [searchQuery]);
+
+  useEffect(() => {
+    const isFilterApplied = filter !== "all" || sort !== "default" || priceRange !== "all" || searchQuery !== "";
+    setFiltersApplied(isFilterApplied);
+  }, [filter, sort, priceRange, searchQuery]);
 
   const getPriceRange = (range: string) => {
     switch (range) {
@@ -80,63 +86,116 @@ const ProductList = ({ products }: { products: IProducts[] }) => {
     return 0;
   });
 
+  const resetFilters = () => {
+    setSearchQuery("");
+    setFilter("all");
+    setSort("default");
+    setPriceRange("all");
+  };
+
   return (
     <div className="px-4 sm:px-8 lg:px-16 py-6">
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+      {/* Desktop Filters and Search */}
+      <div className="hidden lg:flex items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-4">
+          <Select onValueChange={setFilter} defaultValue={filter}>
+            <SelectTrigger>
+              <SelectValue placeholder="All Categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="wing-chair">Wing Chair</SelectItem>
+              <SelectItem value="wooden-chair">Wooden Chair</SelectItem>
+              <SelectItem value="office-chair">Office Chair</SelectItem>
+            </SelectContent>
+          </Select>
 
-        {/* Desktop Filters */}
-        Price (Low to High) & Price (High to Low)
+          <Select onValueChange={setSort} defaultValue={sort}>
+            <SelectTrigger>
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="default">Sort By</SelectItem>
+              <SelectItem value="priceLow">Price (Low to High)</SelectItem>
+              <SelectItem value="priceHigh">Price (High to Low)</SelectItem>
+            </SelectContent>
+          </Select>
 
-
-        {/* Mobile Filter Button */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="default" className="lg:hidden">
-              <Filter className="mr-2" /> Filters
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="w-full sm:w-80 p-4 bg-white">
-            <div className="space-y-4">
-              <Select onValueChange={setFilter} defaultValue={filter}>
-                <SelectTrigger><SelectValue placeholder="All Categories" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="wing-chair">Wing Chair</SelectItem>
-                  <SelectItem value="wooden-chair">Wooden Chair</SelectItem>
-                  <SelectItem value="office-chair">Office Chair</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select onValueChange={setSort} defaultValue={sort}>
-                <SelectTrigger><SelectValue placeholder="Sort by" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="default">Sort By</SelectItem>
-                  <SelectItem value="priceLow">Price (Low to High)</SelectItem>
-                  <SelectItem value="priceHigh">Price (High to Low)</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select onValueChange={setPriceRange} defaultValue={priceRange}>
-                <SelectTrigger><SelectValue placeholder="All Prices" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Prices</SelectItem>
-                  <SelectItem value="under10">Under $10</SelectItem>
-                  <SelectItem value="10to30">$10 - $30</SelectItem>
-                  <SelectItem value="30to50">$30 - $50</SelectItem>
-                  <SelectItem value="50to100">$50 - $100</SelectItem>
-                  <SelectItem value="100plus">$100+</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-
-        {/* Search Input */}
+          <Select onValueChange={setPriceRange} defaultValue={priceRange}>
+            <SelectTrigger>
+              <SelectValue placeholder="All Prices" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Prices</SelectItem>
+              <SelectItem value="under10">Under $10</SelectItem>
+              <SelectItem value="10to30">$10 - $30</SelectItem>
+              <SelectItem value="30to50">$30 - $50</SelectItem>
+              <SelectItem value="50to100">$50 - $100</SelectItem>
+              <SelectItem value="100plus">$100+</SelectItem>
+            </SelectContent>
+          </Select>
+          {filtersApplied && <Button onClick={resetFilters} variant="outline">Reset Filters</Button>}
+        </div>
         <Input
           type="text"
           placeholder="Search products..."
-          className="w-full sm:w-64"
+          className="w-64"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* Mobile Filters & Search */}
+      <div className="lg:hidden flex flex-col gap-4 mb-6">
+        <div className="flex gap-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="default" className="flex-1">
+                <Filter className="mr-2" /> Filters
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="w-full sm:w-80 p-4 bg-white">
+              <DialogTitle>Filter Options</DialogTitle>
+              <div className="space-y-4">
+                <Select onValueChange={setFilter} defaultValue={filter}>
+                  <SelectTrigger><SelectValue placeholder="All Categories" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="wing-chair">Wing Chair</SelectItem>
+                    <SelectItem value="wooden-chair">Wooden Chair</SelectItem>
+                    <SelectItem value="office-chair">Office Chair</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select onValueChange={setSort} defaultValue={sort}>
+                  <SelectTrigger><SelectValue placeholder="Sort by" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="default">Sort By</SelectItem>
+                    <SelectItem value="priceLow">Price (Low to High)</SelectItem>
+                    <SelectItem value="priceHigh">Price (High to Low)</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select onValueChange={setPriceRange} defaultValue={priceRange}>
+                  <SelectTrigger><SelectValue placeholder="All Prices" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Prices</SelectItem>
+                    <SelectItem value="under10">Under $10</SelectItem>
+                    <SelectItem value="10to30">$10 - $30</SelectItem>
+                    <SelectItem value="30to50">$30 - $50</SelectItem>
+                    <SelectItem value="50to100">$50 - $100</SelectItem>
+                    <SelectItem value="100plus">$100+</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </DialogContent>
+          </Dialog>
+          {filtersApplied && <Button onClick={resetFilters} variant="outline" className="flex-1">Reset Filters</Button>}
+        </div>
+        <Input
+          type="text"
+          placeholder="Search products..."
+          className="w-full"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

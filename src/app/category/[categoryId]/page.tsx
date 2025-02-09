@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
 import { client } from "@/sanity/lib/client";
@@ -9,6 +9,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { CiShoppingCart } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 interface IProduct {
   _id: string;
@@ -56,6 +57,7 @@ const fetchProducts = async (categoryId: string): Promise<IProduct[]> => {
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams();
   const dispatch = useDispatch();
+  const router = useRouter();
   const [category, setCategory] = useState<ICategory | null>(null);
   const [products, setProducts] = useState<IProduct[]>([]);
 
@@ -78,6 +80,28 @@ const CategoryPage: React.FC = () => {
   }, [categoryId]);
 
   if (!category) return <p className="text-center py-10">Loading...</p>;
+
+  const handleAddToCart = (product: IProduct) => {
+    const cartItem = {
+      id: product._id,
+      name: product.title,
+      image: urlFor(product.image).url(),
+      price: product.price,
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+
+    toast.success(`${product.title} has been added to the cart!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      onClick: () => router.push("/cart"),
+    });
+  };
 
   return (
     <div className="px-4 sm:px-8 lg:px-16 py-6 bg-white">
@@ -130,13 +154,7 @@ const CategoryPage: React.FC = () => {
             </Link>
             <div
               className="absolute bottom-4 right-4 p-2 bg-gray-200 text-black rounded-lg transition-all hover:text-white hover:bg-cyan-600 cursor-pointer"
-              onClick={() => dispatch(addToCart({
-                id: product._id,
-                name: product.title,
-                image: urlFor(product.image).url(),
-                price: product.price,
-                quantity: 1,
-              }))}
+              onClick={() => handleAddToCart(product)}
             >
               <CiShoppingCart className="w-6 h-6" />
             </div>

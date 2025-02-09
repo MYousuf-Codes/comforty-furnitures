@@ -1,4 +1,5 @@
 "use client";
+
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog"; // Import Dialog, DialogTrigger, DialogContent, and DialogTitle from ShadCN UI
 import React, { useState } from "react";
 import Image from "next/image";
@@ -6,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -32,12 +33,16 @@ const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          {/* Cart and Mobile Menu */}
+          {/* Cart, Wishlist and Mobile Menu */}
           <div className="flex items-center space-x-4 md:space-x-6">
+            <Link href="/wishlist">
+              <div className="flex items-center bg-white px-3 py-1 rounded-lg cursor-pointer relative">
+                <FaHeart className="text-base md:text-lg" />
+              </div>
+            </Link>
             <Link href="/cart">
               <div className="flex items-center bg-white px-3 py-1 rounded-lg cursor-pointer relative">
                 <FaShoppingCart className="text-base md:text-lg" />
-                <span className="ml-2 text-xs md:text-lg">Cart</span>
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-green-800 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center text-white text-xs rounded-full">
                     {cartCount}
@@ -92,10 +97,9 @@ const Navbar: React.FC = () => {
       {/* Mobile Drawer (Dialog) */}
       <Dialog open={isDrawerOpen} onOpenChange={toggleDrawer}>
         <DialogTrigger asChild>
-          {/* Button can be used for triggering drawer */}
         </DialogTrigger>
         <DialogContent className="sm:hidden bg-white shadow-lg p-6">
-          <DialogTitle>Menu</DialogTitle> {/* Added DialogTitle for accessibility */}
+          <DialogTitle>Menu</DialogTitle>
           <nav>
             <ul className="space-y-4 text-sm">
               {[{ href: "/", label: "Home" }, { href: "/products", label: "Products" }, { href: "/category", label: "Category" }, { href: "/about", label: "About" }, { href: "/contact", label: "Contact" }].map(
