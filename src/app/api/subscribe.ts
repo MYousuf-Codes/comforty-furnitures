@@ -3,7 +3,7 @@ import Resend from 'resend';
 
 const resend = new (Resend as any)(process.env.RESEND_API_KEY);
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const { email } = req.body;
 
@@ -31,3 +31,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).json({ success: false, error: 'Method Not Allowed' });
   }
 };
+
+export default handler;
