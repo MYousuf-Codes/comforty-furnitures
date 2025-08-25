@@ -126,7 +126,6 @@ const Featured = () => {
 
             {/* Product Detail Link */}
             <Link href={`/products/${product._id}`}>
-              {/* No need to modify Link, it's used for product detail page */}
             </Link>
           </div>
         ))}

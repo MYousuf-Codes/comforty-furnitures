@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
 
       {/* Footer Bottom */}
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center px-6 py-4 text-sm text-gray-500">
-        <Link href="https://linkedin.com/in/myousuf-codes" className="mb-4 lg:mb-0">
+        <Link href="https://linkedin.com/in/myousuf-codes" target="blank" className="mb-4 lg:mb-0">
           <p>
             Developed by <span className="text-black font-semibold cursor-pointer">Muhammad Yousuf</span>
           </p>
