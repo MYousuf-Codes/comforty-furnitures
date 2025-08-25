@@ -1,6 +1,5 @@
-// src/app/products/[productId]/page.tsx (Product listing page)
 
-import ProductList from "@/components/ProductList"; // Client Component
+import ProductList from "@/components/ProductList"; 
 import { fetchProducts } from "@/sanity/lib/fetchProducts";
 
 const ProductPage = async () => {

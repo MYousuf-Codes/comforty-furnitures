@@ -1,4 +1,3 @@
-// src/app/products/[productId]/page.tsx
 import { fetchProduct } from "@/sanity/lib/fetchProduct";
 import ProductDetail from "@/components/ProductDetail";
 import Featured from "@/components/Featured";
